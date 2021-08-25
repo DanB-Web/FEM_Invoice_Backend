@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const connectDB = async () => {
+const connectDB = async (connectedFrom) => {
 
   let databaseString;
 
@@ -11,12 +11,12 @@ const connectDB = async () => {
   }
 
   try {
-    const conn = await mongoose.connect('mongodb://localhost:27017/invoiceApp', {
+    const conn = await mongoose.connect(databaseString, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       //useCreateIndex: true
     })
-    console.log(`Database Connected: ${conn.connection.host}`.cyan.underline);
+    console.log(`Database Connected to ${connectedFrom}: ${conn.connection.host}`.cyan.underline);
   } catch (err) {
     console.error(`Database Connection Error: ${err.message}`.red.underline.bold);
     process.exit(1);

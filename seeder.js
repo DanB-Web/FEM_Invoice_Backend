@@ -10,6 +10,7 @@ const data = JSON.parse(
 );
 
 import { User } from './models/userModel.js';
+import { Invoice } from './models/invoiceModel.js';
 
 import { connectDB } from './config/database.js';
 
@@ -20,13 +21,15 @@ const user = {
 }
 
 dotenv.config();
-connectDB();
+connectDB('seeder.js');
 
 const importData = async () => {
   try {
-    await User.deleteMany()
-    await User.create(user)
-    console.log('Data imported'.green.inverse);
+    await User.deleteMany();
+    await User.create(user);
+    await Invoice.deleteMany();
+    await Invoice.insertMany(data);
+    console.log('Data imported locally'.green.inverse);
     process.exit();
   } catch (err) {
     console.error(`${err}`.red.inverse);
@@ -34,24 +37,22 @@ const importData = async () => {
   }
 }
 
-//CHANGE THIS TO ONLY REPLACE INVOICES
 const importDataRemote = async () => {
   try {
-    await User.deleteMany()
-    await User.create(user)
-    console.log('Data imported'.green.inverse);
-    //process.exit();
+    await Invoice.deleteMany();
+    await Invoice.insertMany(data);
+    console.log('Data reset remotely'.green.inverse);
   } catch (err) {
     console.error(`${err}`.red.inverse);
     throw new Error('data reset seeder error')
-    //process.exit(1);
   }
 }
 
 const destroyData = async () => {
   try { 
     await User.deleteMany();
-    console.log('Data removed!'.green.inverse);
+    await Invoice.deleteMany();
+    console.log('Data removed locally'.green.inverse);
     process.exit();
   } catch (err) {
     console.error(`${error}`.red.inverse);

@@ -38,7 +38,7 @@ app.use(errorHandler);
 
 (async function () {
  try {
-    await connectDB();
+    await connectDB('server.js');
     app.listen(PORT, () => {
       console.log(`Listening in ${process.env.NODE_ENV} mode on port ${PORT}`.green.bold);
     })
