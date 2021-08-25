@@ -15,9 +15,9 @@ import { Invoice } from './models/invoiceModel.js';
 import { connectDB } from './config/database.js';
 
 const user = { 
-  name: 'John Doe',
-  email: 'johndoe@email.com', 
-  password: 'password'
+  name: process.env.USER_NAME,
+  email: process.env.USER_EMAIL, 
+  password: process.env.USER_PASSWORD
 }
 
 dotenv.config();
