@@ -7,6 +7,7 @@ import colors from 'colors';
 
 //ROUTES
 import userRoutes from './routes/userRoutes.js';
+import invoiceRoutes from './routes/invoiceRoutes.js';
 import dataRoutes from './routes/dataRoutes.js';
 
 import { errorHandler } from './middleware/errorMiddleware.js';
@@ -31,6 +32,7 @@ isProduction ?
 
 //ROUTES
 app.use('/user', userRoutes);
+app.use('/invoices', invoiceRoutes);
 app.use('/data', dataRoutes);
 
 //ERROR HANDLING
