@@ -24,6 +24,21 @@ export const createInvoice = async (req, res) => {
   }
 }
 
+export const invoiceStatus = async (req, res) => {
+  try {
+    const id = req.params.id;
+    console.log(id);
+    const data = await Invoice.findOne({id});
+    data.status === 'pending' ?
+      data.status = 'paid':
+      data.status = 'pending';
+    const updated = await data.save()
+    res.status(201).send(updated)
+  } catch (e) {
+    throw new Error('invoice status error')
+  }
+}
+
 export const editInvoice = async (req, res) => {
   try {
     const id = req.body.id;
